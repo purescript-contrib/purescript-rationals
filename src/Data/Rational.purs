@@ -30,3 +30,6 @@ denominator (Rational _ b) = b
 
 toNumber :: Rational -> Number
 toNumber (Rational a b) = Int.toNumber a / Int.toNumber b
+
+fromInt :: Int -> Rational
+fromInt i = Rational i 1
