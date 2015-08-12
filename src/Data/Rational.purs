@@ -24,6 +24,9 @@ instance semiringRational :: Semiring Rational where
 instance ringRational :: Ring Rational where
   sub (Rational a b) (Rational c d) = Rational ((a * d) - (b * c)) (b * d)
 
+instance eqRational :: Eq Rational where
+  eq p q = numerator (reduce p) == numerator (reduce q) && denominator (reduce p) == denominator (reduce q)
+
 infixl 7 %
 
 (%) :: Int -> Int -> Rational
@@ -40,3 +43,11 @@ toNumber (Rational a b) = Int.toNumber a / Int.toNumber b
 
 fromInt :: Int -> Rational
 fromInt i = Rational i 1
+
+reduce :: Rational -> Rational
+reduce (Rational a b) = Rational (a `div` gcd a b) (b `div` gcd a b)
+  where
+    gcd :: Int -> Int -> Int
+    gcd m n
+      | n == 0 = m
+      | otherwise = gcd n (m `mod` n)
