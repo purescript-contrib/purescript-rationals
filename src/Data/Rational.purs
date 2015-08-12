@@ -11,7 +11,7 @@ instance showRational :: Show Rational where
 instance semiringRational :: Semiring Rational where
   one = Rational 1 1
   mul (Rational a b) (Rational c d) = Rational (a * c) (b * d)
-  zero = Rational 0 0
+  zero = Rational 0 1
   add (Rational a b) (Rational c d) = Rational ((a * d) + (b * c)) (b * d)
 
 instance ringRational :: Ring Rational where
