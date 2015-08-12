@@ -15,7 +15,7 @@ instance semiringRational :: Semiring Rational where
   add (Rational a b) (Rational c d) = Rational ((a * d) + (b * c)) (b * d)
 
 instance ringRational :: Ring Rational where
-  sub (Rational a b) (Rational c d) = Rational ((a * d) - (b * c)) (d * d)
+  sub (Rational a b) (Rational c d) = Rational ((a * d) - (b * c)) (b * d)
 
 infixl 7 %
 
