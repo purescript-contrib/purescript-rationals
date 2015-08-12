@@ -1,4 +1,11 @@
-module Data.Rational where
+module Data.Rational
+  ( Rational()
+  , (%)
+  , numerator
+  , denominator
+  , toNumber
+  , fromInt
+  ) where
 
 import Prelude
 import qualified Data.Int as Int
