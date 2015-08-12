@@ -1,0 +1,16 @@
+{
+  "name": "purescript-rationals",
+  "version": "0.1.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "output"
+  ],
+  "dependencies": {
+    "purescript-integers": "~0.2.1"
+  },
+  "devDependencies": {
+    "purescript-console": "~0.1.0"
+  }
+}
