@@ -11,6 +11,7 @@ Using the `Number` type:
 The same can be expressed with `Rational` using the `(%)` operator:
 
 ```
+> import Data.Rational
 > toNumber $ (1 % 10) + (2 % 10)
 0.3
 ```
