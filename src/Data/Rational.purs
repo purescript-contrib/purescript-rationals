@@ -30,7 +30,7 @@ instance eqRational :: Eq Rational where
 infixl 7 %
 
 (%) :: Int -> Int -> Rational
-(%) = Rational
+(%) m n = reduce $ Rational m n
 
 numerator :: Rational -> Int
 numerator (Rational a _) = a
