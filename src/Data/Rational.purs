@@ -28,6 +28,10 @@ instance semiringRational :: Semiring Rational where
 instance ringRational :: Ring Rational where
   sub (Rational a) (Rational b) = reduce $ Rational $ a `sub` b
 
+instance moduloSemiringRational :: ModuloSemiring Rational where
+  mod (Rational a) (Rational b) = reduce $ Rational $ a `mod` b
+  div (Rational a) (Rational b) = reduce $ Rational $ a `div` b
+
 infixl 7 %
 
 (%) :: Int -> Int -> Rational
