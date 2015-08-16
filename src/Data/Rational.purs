@@ -32,6 +32,10 @@ instance moduloSemiringRational :: ModuloSemiring Rational where
   mod (Rational a) (Rational b) = reduce $ Rational $ a `mod` b
   div (Rational a) (Rational b) = reduce $ Rational $ a `div` b
 
+instance divisionRingRational :: DivisionRing Rational
+
+instance numRational :: Num Rational
+
 infixl 7 %
 
 (%) :: Int -> Int -> Rational

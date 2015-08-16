@@ -17,6 +17,10 @@ instance moduloSemiringRatio :: (Ring a, Semiring a, ModuloSemiring a) => Modulo
   mod a@(Ratio p1 q1) b@(Ratio p2 q2) = a - (Ratio ((p1 * q2) / (p2 * q1)) one) * b
   div (Ratio a b) (Ratio c d) = Ratio (a * d) (b * c)
 
+instance divisionRingRatio :: (Ring a, ModuloSemiring a) => DivisionRing (Ratio a)
+
+instance numRatio :: (DivisionRing a) => Num (Ratio a)
+
 numerator :: forall a. Ratio a -> a
 numerator (Ratio a _) = a
 
