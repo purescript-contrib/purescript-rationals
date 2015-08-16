@@ -10,7 +10,10 @@ data Ratio a
 ##### Instances
 ``` purescript
 instance semiringRatio :: (Semiring a) => Semiring (Ratio a)
-instance ringRatio :: (Ring a) => Ring (Ratio a)
+instance ringRatio :: (Semiring a, Ring a) => Ring (Ratio a)
+instance moduloSemiringRatio :: (Ring a, Semiring a, ModuloSemiring a) => ModuloSemiring (Ratio a)
+instance divisionRingRatio :: (Ring a, ModuloSemiring a) => DivisionRing (Ratio a)
+instance numRatio :: (DivisionRing a) => Num (Ratio a)
 ```
 
 #### `numerator`
