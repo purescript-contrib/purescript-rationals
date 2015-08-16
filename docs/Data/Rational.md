@@ -3,12 +3,14 @@
 #### `Rational`
 
 ``` purescript
-data Rational
+newtype Rational
+  = Rational (Ratio Int)
 ```
 
 ##### Instances
 ``` purescript
 instance showRational :: Show Rational
+instance eqRational :: Eq Rational
 instance semiringRational :: Semiring Rational
 instance ringRational :: Ring Rational
 ```
@@ -20,18 +22,6 @@ instance ringRational :: Ring Rational
 ```
 
 _left-associative / precedence 7_
-
-#### `numerator`
-
-``` purescript
-numerator :: Rational -> Int
-```
-
-#### `denominator`
-
-``` purescript
-denominator :: Rational -> Int
-```
 
 #### `toNumber`
 
