@@ -14,7 +14,7 @@ instance ringRatio :: (Ring a) => Ring (Ratio a) where
   sub (Ratio a b) (Ratio c d) = Ratio ((a * d) - (b * c)) (b * d)
 
 instance moduloSemiringRatio :: (Ring a, ModuloSemiring a) => ModuloSemiring (Ratio a) where
-  mod a@(Ratio p1 q1) b@(Ratio p2 q2) = a - (Ratio ((p1 * q2) / (p2 * q1)) one) * b
+  mod _ _ = zero
   div (Ratio a b) (Ratio c d) = Ratio (a * d) (b * c)
 
 instance divisionRingRatio :: (DivisionRing a) => DivisionRing (Ratio a)
