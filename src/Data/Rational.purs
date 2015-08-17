@@ -17,7 +17,7 @@ instance showRational :: Show Rational where
 instance eqRational :: Eq Rational where
   eq x y = eq' (reduce x) (reduce y)
     where
-    eq' (Rational (Ratio a' b')) (Rational (Ratio c' d')) = a' == c' && d' == d'
+    eq' (Rational (Ratio a' b')) (Rational (Ratio c' d')) = a' == c' && b' == d'
 
 instance semiringRational :: Semiring Rational where
   one = Rational $ one
