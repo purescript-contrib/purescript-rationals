@@ -14,8 +14,6 @@ instance eqRational :: Eq Rational
 instance semiringRational :: Semiring Rational
 instance ringRational :: Ring Rational
 instance moduloSemiringRational :: ModuloSemiring Rational
-instance divisionRingRational :: DivisionRing Rational
-instance numRational :: Num Rational
 ```
 
 #### `(%)`
