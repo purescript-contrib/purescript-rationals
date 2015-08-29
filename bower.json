@@ -15,6 +15,8 @@
     "purescript-integers": "~0.2.1"
   },
   "devDependencies": {
-    "purescript-console": "~0.1.0"
+    "purescript-console": "^0.1.0",
+    "purescript-strongcheck": "purescript-contrib/purescript-strongcheck#master",
+    "purescript-prelude": "^0.1.0"
   }
 }
