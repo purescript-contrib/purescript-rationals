@@ -19,6 +19,11 @@ instance eqRational :: Eq Rational where
     where
     eq' (Rational (Ratio a' b')) (Rational (Ratio c' d')) = a' == c' && b' == d'
 
+instance ordRational :: Ord Rational where
+  compare (Rational (Ratio a b)) (Rational (Ratio c d)) | a * d < b * c = LT
+  compare (Rational (Ratio a b)) (Rational (Ratio c d)) | a * d == b * c = EQ
+  compare _ _ = GT
+
 instance semiringRational :: Semiring Rational where
   one = Rational $ one
   mul (Rational a) (Rational b) = reduce $ Rational $ a `mul` b
