@@ -37,12 +37,7 @@ instance moduloSemiringRational :: ModuloSemiring Rational where
 infixl 7 %
 
 (%) :: Int -> Int -> Rational
-(%) x y = reduce $ Rational $ Ratio (x * signum y) (abs y)
-  where
-  signum :: Int -> Int
-  signum 0 = 0
-  signum x | x < 0 = -1
-  signum _ = 1
+(%) x y = reduce $ Rational $ Ratio x y
 
 toNumber :: Rational -> Number
 toNumber (Rational (Ratio a b)) = Int.toNumber a / Int.toNumber b
@@ -51,12 +46,20 @@ fromInt :: Int -> Rational
 fromInt i = Rational $ Ratio i 1
 
 reduce :: Rational -> Rational
-reduce (Rational (Ratio a b)) = Rational $ Ratio (a / gcd a b) (b / gcd a b)
-  where
-    gcd :: Int -> Int -> Int
-    gcd m n
-      | n == 0 = m
-      | otherwise = gcd n (m `mod` n)
+reduce (Rational (Ratio a b)) =
+  let x = a / gcd a b
+      y = b / gcd a b
+  in Rational $ Ratio (x * signum y) (abs y)
+
+gcd :: Int -> Int -> Int
+gcd m n
+  | n == 0 = m
+  | otherwise = gcd n (m `mod` n)
+
+signum :: Int -> Int
+signum 0 = 0
+signum x' | x' < 0 = -1
+signum _ = 1
 
 foreign import abs :: Int -> Int
 
