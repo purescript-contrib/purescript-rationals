@@ -34,10 +34,12 @@ instance ringRational :: Ring Rational where
   sub (Rational a) (Rational b) = reduce $ Rational $ a `sub` b
 
 instance moduloSemiringRational :: ModuloSemiring Rational where
-  mod (Rational a@(Ratio p1 q1)) (Rational b@(Ratio p2 q2)) = reduce $ Rational $ a - n * b
-    where
-    n = Ratio ((p1 * q2) / (p2 * q1)) 1
+  mod _ _ = zero
   div (Rational a) (Rational b) = reduce $ Rational $ a `div` b
+
+instance divisionRingRational :: DivisionRing Rational
+
+instance numRational :: Num Rational
 
 infixl 7 %
 

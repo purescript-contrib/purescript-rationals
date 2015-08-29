@@ -15,28 +15,57 @@ instance arbitraryTestRational :: Arbitrary TestRational where
     b <- suchThat (chooseInt (-99.0) 99.0) (/= 0)
     return $ TestRational $ a % b
 
+newtype TestRatNonZero = TestRatNonZero Rational
+
+instance arbitraryTestRatNonZero :: Arbitrary TestRatNonZero where
+  arbitrary = do
+    a <- suchThat (chooseInt (-99.0) 99.0) (/= 0)
+    b <- suchThat (chooseInt (-99.0) 99.0) (/= 0)
+    return $ TestRatNonZero $ a % b
+
 main = do
-  -- Commutative monoid under addition
-  quickCheck identity
-  quickCheck identityZero
+  log "Semiring: commutative monoid under addition:"
+  log "- associative"
   quickCheck associative
+  log "- identity"
+  quickCheck identity
+  log "- identityZero"
+  quickCheck identityZero
+  log "- commutative"
   quickCheck commutative
 
-  -- Semiring
-
-  -- Monoid under multiplication
+  log "Semiring: Monoid under multiplication"
+  log "- associative"
   quickCheck multAssoc
+  log "- identity"
   quickCheck multIdentity
 
-  -- Multiplication distributes over addition
+  log "Semiring: Multiplication distributes over addition"
+  log "- left distributivity"
   quickCheck leftDistributivity
+  log "- right distributivity"
   quickCheck rightDistributivity
-
+  log "- annihilation"
   quickCheck annihilation
-  quickCheck annihilation2
 
+  log "ModuloSemiring"
+  log "- remainder"
+  quickCheck remainder
+
+  log "DivisionRing"
+  log "- multiplicative inverse"
+  quickCheck multiplicativeInverse
+
+  log "Num:"
+  log "- commutative multiplication"
+  quickCheck commutativeMultiplication
+
+  log "Ord"
+  log "- reflexivity"
   quickCheck ordReflexivity
+  log "- antisymmetry"
   quickCheck ordAntisymmetry
+  log "- transitivity"
   quickCheck ordTransitivity
 
     where
@@ -65,17 +94,23 @@ main = do
     rightDistributivity :: TestRational -> TestRational -> TestRational -> Result
     rightDistributivity (TestRational a) (TestRational b) (TestRational c) = (a + b) * c === (a * c) + (b * c)
 
-    annihilation :: TestRational -> Result
-    annihilation (TestRational a) = zero * a === a * zero
-
-    annihilation2 :: TestRational -> Result
-    annihilation2 (TestRational a) = zero === a * zero
+    annihilation :: TestRational -> Boolean
+    annihilation (TestRational a) = zero * a == a * zero && zero == a * zero
 
     ordReflexivity :: TestRational -> Boolean
     ordReflexivity (TestRational a) = a <= a
 
     ordAntisymmetry :: TestRational -> TestRational -> Boolean
     ordAntisymmetry (TestRational a) (TestRational b) = if a <= b && b <= a then a == b else true
+
+    remainder :: TestRatNonZero -> TestRatNonZero -> Result
+    remainder (TestRatNonZero a) (TestRatNonZero b) = a / b * b + (a `mod` b) === a
+
+    multiplicativeInverse :: TestRatNonZero -> Result
+    multiplicativeInverse (TestRatNonZero x) = (one / x) * x === one
+
+    commutativeMultiplication :: TestRational -> TestRational -> Result
+    commutativeMultiplication (TestRational a) (TestRational b) = a * b === b * a
 
     ordTransitivity :: TestRational -> TestRational -> TestRational -> Boolean
     ordTransitivity (TestRational a) (TestRational b) (TestRational c) = if a <= b && b <= c then a <= c else true
