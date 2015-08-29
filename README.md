@@ -22,3 +22,5 @@ You can turn a `Rational` to a `Number`:
 > toNumber $ (3 % 10)
 0.3
 ```
+
+[API docs](http://pursuit.purescript.org/packages/purescript-rationals/)
