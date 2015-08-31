@@ -24,48 +24,41 @@ instance arbitraryTestRatNonZero :: Arbitrary TestRatNonZero where
     return $ TestRatNonZero $ a % b
 
 main = do
-  log "Semiring: commutative monoid under addition:"
-  log "- associative"
+  log "Checking 'Associative' law for Semiring addition"
   quickCheck associative
-  log "- identity"
+  log "Checking 'Identity' law for Semiring addition"
   quickCheck identity
-  log "- identityZero"
+  log "Checking 'Identity zero' law for Semiring addition"
   quickCheck identityZero
-  log "- commutative"
+  log "Checking 'Commutative' law for Semiring addition"
   quickCheck commutative
 
-  log "Semiring: Monoid under multiplication"
-  log "- associative"
+  log "Checking 'Associative' law for Semiring multiplication"
   quickCheck multAssoc
-  log "- identity"
+  log "Checking 'Identity' law for Semiring multiplication"
   quickCheck multIdentity
 
-  log "Semiring: Multiplication distributes over addition"
-  log "- left distributivity"
+  log "Checking 'Left distribution' law for Semiring"
   quickCheck leftDistributivity
-  log "- right distributivity"
+  log "Checking 'Right distribution' law for Semiring"
   quickCheck rightDistributivity
-  log "- annihilation"
+  log "Checking 'Annihilation' law for Semiring"
   quickCheck annihilation
 
-  log "ModuloSemiring"
-  log "- remainder"
+  log "Checking 'Remainder' law for MuduloSemiring"
   quickCheck remainder
 
-  log "DivisionRing"
-  log "- multiplicative inverse"
+  log "Checking 'Multiplicative inverse' law for DivisionRing"
   quickCheck multiplicativeInverse
 
-  log "Num:"
-  log "- commutative multiplication"
+  log "Checking 'Commutative multiplication' law for Num"
   quickCheck commutativeMultiplication
 
-  log "Ord"
-  log "- reflexivity"
+  log "Checking 'Reflexivity' law for Ord"
   quickCheck ordReflexivity
-  log "- antisymmetry"
+  log "Checking 'Antisymmetry' law for Ord"
   quickCheck ordAntisymmetry
-  log "- transitivity"
+  log "Checking 'Transitivity' law for Ord"
   quickCheck ordTransitivity
 
     where
