@@ -19,7 +19,7 @@ The same can be expressed accurately with `Rational` using the `(%)` operator:
 You can turn a `Rational` to a `Number`:
 
 ```
-> toNumber $ (3 % 10)
+> toNumber (3 % 10)
 0.3
 ```
 
