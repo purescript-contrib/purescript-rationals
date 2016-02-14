@@ -1,6 +1,7 @@
 module Data.Ratio where
 
-import Prelude
+import Prelude (class Num, class DivisionRing, class ModuloSemiring, class
+               Ring, class Semiring, (*), zero, (-), (+), one)
 
 data Ratio a = Ratio a a
 

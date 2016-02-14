@@ -1,10 +1,14 @@
 module Test.Main where
 
-import Prelude
-import Control.Monad.Eff.Console
-import Data.Rational
-import Test.StrongCheck
-import Test.StrongCheck.Gen
+import Prelude (bind, (<=), (&&), (*), one, (/), mod, (+), (==), zero, ($),
+               return, (/=), negate, Unit)
+import Control.Monad.Eff (Eff)
+import Control.Monad.Eff.Console (CONSOLE, log)
+import Control.Monad.Eff.Random (RANDOM)
+import Control.Monad.Eff.Exception (EXCEPTION)
+import Data.Rational (Rational, (%))
+import Test.StrongCheck (class Arbitrary, Result, quickCheck, (===))
+import Test.StrongCheck.Gen (chooseInt, suchThat)
 
 
 newtype TestRational = TestRational Rational
@@ -23,6 +27,7 @@ instance arbitraryTestRatNonZero :: Arbitrary TestRatNonZero where
     b <- suchThat (chooseInt (-99.0) 99.0) (/= 0)
     return $ TestRatNonZero $ a % b
 
+main :: forall eff. Eff (console :: CONSOLE, random :: RANDOM, err :: EXCEPTION | eff) Unit
 main = do
   log "Checking 'Associative' law for Semiring addition"
   quickCheck associative

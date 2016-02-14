@@ -1,13 +1,17 @@
 module Data.Rational
   ( Rational(..)
+  , rational
   , (%)
   , toNumber
   , fromInt
   ) where
 
-import Prelude
-import qualified Data.Int as Int
-import Data.Ratio
+import Prelude (class Num, class DivisionRing, class ModuloSemiring, class
+               Ring, class Semiring, class Ord, class Eq, class Show,
+               Ordering(GT, EQ, LT), negate, (<), mod, otherwise, (==), (*),
+               ($), (/), div, zero, sub, add, mul, one, (&&), show, (++))
+import Data.Int as Int
+import Data.Ratio (Ratio(Ratio))
 
 newtype Rational = Rational (Ratio Int)
 
@@ -41,10 +45,10 @@ instance divisionRingRational :: DivisionRing Rational
 
 instance numRational :: Num Rational
 
-infixl 7 %
+infixl 7 rational as %
 
-(%) :: Int -> Int -> Rational
-(%) x y = reduce $ Rational $ Ratio x y
+rational :: Int -> Int -> Rational
+rational x y = reduce $ Rational $ Ratio x y
 
 toNumber :: Rational -> Number
 toNumber (Rational (Ratio a b)) = Int.toNumber a / Int.toNumber b
