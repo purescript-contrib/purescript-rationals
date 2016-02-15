@@ -23,4 +23,12 @@ You can turn a `Rational` to a `Number`:
 0.3
 ```
 
-[API docs](http://pursuit.purescript.org/packages/purescript-rationals/)
+## Installation
+
+```
+bower install purescript-rationals
+```
+
+## Documentation
+
+Module documentation is [published on Pursuit](http://pursuit.purescript.org/packages/purescript-rationals/).
