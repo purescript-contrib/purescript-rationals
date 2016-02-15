@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "scripts": {
+    "postinstall": "bower install",
+    "build": "pulp build",
+    "test": "pulp test"
+  },
+  "devDependencies": {
+    "pulp": "^8.0.0",
+    "purescript": "^0.8.0"
+  }
+}
