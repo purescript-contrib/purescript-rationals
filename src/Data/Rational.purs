@@ -6,10 +6,7 @@ module Data.Rational
   , fromInt
   ) where
 
-import Prelude (class Num, class DivisionRing, class ModuloSemiring, class
-               Ring, class Semiring, class Ord, class Eq, class Show,
-               Ordering(GT, EQ, LT), negate, (<), mod, otherwise, (==), (*),
-               ($), (/), div, zero, sub, add, mul, one, (&&), show, (++))
+import Prelude
 import Data.Int as Int
 import Data.Ratio (Ratio(Ratio))
 
@@ -73,4 +70,3 @@ signum x' | x' < 0 = -1
 signum _ = 1
 
 foreign import abs :: Int -> Int
-
