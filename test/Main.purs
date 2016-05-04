@@ -1,7 +1,6 @@
 module Test.Main where
 
-import Prelude (bind, (<=), (&&), (*), one, (/), mod, (+), (==), zero, ($),
-               return, (/=), negate, Unit)
+import Prelude
 import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Console (CONSOLE, log)
 import Control.Monad.Eff.Random (RANDOM)
@@ -16,15 +15,15 @@ newtype TestRational = TestRational Rational
 instance arbitraryTestRational :: Arbitrary TestRational where
   arbitrary = do
     a <- chooseInt (-99.0) 99.0
-    b <- suchThat (chooseInt (-99.0) 99.0) (/= 0)
+    b <- suchThat (chooseInt (-99.0) 99.0) (_ /= 0)
     return $ TestRational $ a % b
 
 newtype TestRatNonZero = TestRatNonZero Rational
 
 instance arbitraryTestRatNonZero :: Arbitrary TestRatNonZero where
   arbitrary = do
-    a <- suchThat (chooseInt (-99.0) 99.0) (/= 0)
-    b <- suchThat (chooseInt (-99.0) 99.0) (/= 0)
+    a <- suchThat (chooseInt (-99.0) 99.0) (_ /= 0)
+    b <- suchThat (chooseInt (-99.0) 99.0) (_ /= 0)
     return $ TestRatNonZero $ a % b
 
 main :: forall eff. Eff (console :: CONSOLE, random :: RANDOM, err :: EXCEPTION | eff) Unit
