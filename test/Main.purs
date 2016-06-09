@@ -6,7 +6,8 @@ import Control.Monad.Eff.Console (CONSOLE, log)
 import Control.Monad.Eff.Random (RANDOM)
 import Control.Monad.Eff.Exception (EXCEPTION)
 import Data.Rational (Rational, (%))
-import Test.StrongCheck (class Arbitrary, Result, quickCheck, (===))
+import Test.StrongCheck (Result, quickCheck, (===))
+import Test.StrongCheck.Arbitrary (class Arbitrary)
 import Test.StrongCheck.Gen (chooseInt, suchThat)
 
 
@@ -16,7 +17,7 @@ instance arbitraryTestRational :: Arbitrary TestRational where
   arbitrary = do
     a <- chooseInt (-99.0) 99.0
     b <- suchThat (chooseInt (-99.0) 99.0) (_ /= 0)
-    return $ TestRational $ a % b
+    pure $ TestRational $ a % b
 
 newtype TestRatNonZero = TestRatNonZero Rational
 
@@ -24,7 +25,7 @@ instance arbitraryTestRatNonZero :: Arbitrary TestRatNonZero where
   arbitrary = do
     a <- suchThat (chooseInt (-99.0) 99.0) (_ /= 0)
     b <- suchThat (chooseInt (-99.0) 99.0) (_ /= 0)
-    return $ TestRatNonZero $ a % b
+    pure $ TestRatNonZero $ a % b
 
 main :: forall eff. Eff (console :: CONSOLE, random :: RANDOM, err :: EXCEPTION | eff) Unit
 main = do
@@ -49,13 +50,13 @@ main = do
   log "Checking 'Annihilation' law for Semiring"
   quickCheck annihilation
 
+  log "Checking 'Additive inverse' law for Ring"
+  quickCheck additiveInverse
+
   log "Checking 'Remainder' law for MuduloSemiring"
   quickCheck remainder
 
-  log "Checking 'Multiplicative inverse' law for DivisionRing"
-  quickCheck multiplicativeInverse
-
-  log "Checking 'Commutative multiplication' law for Num"
+  log "Checking 'Commutative multiplication' law for CommutativeRing"
   quickCheck commutativeMultiplication
 
   log "Checking 'Reflexivity' law for Ord"
@@ -64,6 +65,15 @@ main = do
   quickCheck ordAntisymmetry
   log "Checking 'Transitivity' law for Ord"
   quickCheck ordTransitivity
+
+  log "Checking 'Integral domain' law for EuclideanRing"
+  quickCheck integralDomain
+
+  log "Checking 'Multiplicative Euclidean function' law for EuclideanRing"
+  quickCheck multiplicativeEuclideanFunction
+
+  log "Checking 'Non-zero multiplicative inverse' law for Field"
+  quickCheck multiplicativeInverse
 
     where
 
@@ -94,6 +104,9 @@ main = do
     annihilation :: TestRational -> Boolean
     annihilation (TestRational a) = zero * a == a * zero && zero == a * zero
 
+    additiveInverse :: TestRational -> Boolean
+    additiveInverse (TestRational a) = a - a == (zero - a) + a && a - a == zero
+
     ordReflexivity :: TestRational -> Boolean
     ordReflexivity (TestRational a) = a <= a
 
@@ -103,11 +116,16 @@ main = do
     remainder :: TestRatNonZero -> TestRatNonZero -> Result
     remainder (TestRatNonZero a) (TestRatNonZero b) = a / b * b + (a `mod` b) === a
 
-    multiplicativeInverse :: TestRatNonZero -> Result
-    multiplicativeInverse (TestRatNonZero x) = (one / x) * x === one
-
     commutativeMultiplication :: TestRational -> TestRational -> Result
     commutativeMultiplication (TestRational a) (TestRational b) = a * b === b * a
 
     ordTransitivity :: TestRational -> TestRational -> TestRational -> Boolean
     ordTransitivity (TestRational a) (TestRational b) (TestRational c) = if a <= b && b <= c then a <= c else true
+
+    integralDomain :: TestRatNonZero -> TestRatNonZero -> Boolean
+    integralDomain (TestRatNonZero a) (TestRatNonZero b) = a * b /= zero
+
+    multiplicativeEuclideanFunction :: TestRatNonZero -> TestRatNonZero -> Boolean
+    multiplicativeEuclideanFunction (TestRatNonZero a) (TestRatNonZero b) = a == (a / b) * b + (a `mod` b)
+    multiplicativeInverse :: TestRational -> TestRational -> Boolean
+    multiplicativeInverse (TestRational a) (TestRational b) = a `mod` b == zero
