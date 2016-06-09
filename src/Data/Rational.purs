@@ -13,7 +13,7 @@ import Data.Ratio (Ratio(Ratio))
 newtype Rational = Rational (Ratio Int)
 
 instance showRational :: Show Rational where
-  show (Rational (Ratio a b)) = show a ++ " % " ++ show b
+  show (Rational (Ratio a b)) = show a <> " % " <> show b
 
 instance eqRational :: Eq Rational where
   eq x y = eq' (reduce x) (reduce y)
@@ -26,21 +26,22 @@ instance ordRational :: Ord Rational where
   compare _ _ = GT
 
 instance semiringRational :: Semiring Rational where
-  one = Rational $ one
+  one = Rational one
   mul (Rational a) (Rational b) = reduce $ Rational $ a `mul` b
-  zero = Rational $ zero
+  zero = Rational zero
   add (Rational a) (Rational b) = reduce $ Rational $ a `add` b
 
 instance ringRational :: Ring Rational where
   sub (Rational a) (Rational b) = reduce $ Rational $ a `sub` b
 
-instance moduloSemiringRational :: ModuloSemiring Rational where
-  mod _ _ = zero
-  div (Rational a) (Rational b) = reduce $ Rational $ a `div` b
+instance commutativeRingRational :: CommutativeRing Rational
 
-instance divisionRingRational :: DivisionRing Rational
+instance euclideanRingRational :: EuclideanRing Rational where
+  degree (Rational a) = degree a
+  div (Rational a) (Rational b) = Rational $ a `div` b
+  mod _ _ = Rational zero
 
-instance numRational :: Num Rational
+instance fieldRational :: Field Rational
 
 infixl 7 rational as %
 

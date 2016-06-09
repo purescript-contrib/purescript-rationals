@@ -13,11 +13,11 @@
     "output"
   ],
   "dependencies": {
-    "purescript-integers": "~0.2.1"
+    "purescript-integers": "^1.0.0"
   },
   "devDependencies": {
-    "purescript-console": "^0.1.0",
-    "purescript-prelude": "^0.1.0",
-    "purescript-strongcheck": "~0.14.7"
+    "purescript-console": "^1.0.0",
+    "purescript-prelude": "^1.0.0",
+    "purescript-strongcheck": "^1.0.0"
   }
 }

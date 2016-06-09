@@ -1,7 +1,6 @@
 module Data.Ratio where
 
-import Prelude (class Num, class DivisionRing, class ModuloSemiring, class
-               Ring, class Semiring, (*), zero, (-), (+), one)
+import Prelude
 
 data Ratio a = Ratio a a
 
@@ -14,13 +13,14 @@ instance semiringRatio :: (Semiring a) => Semiring (Ratio a) where
 instance ringRatio :: (Ring a) => Ring (Ratio a) where
   sub (Ratio a b) (Ratio c d) = Ratio ((a * d) - (b * c)) (b * d)
 
-instance moduloSemiringRatio :: (Ring a, ModuloSemiring a) => ModuloSemiring (Ratio a) where
-  mod _ _ = zero
+instance commutativeRingRatio :: (CommutativeRing a) => CommutativeRing (Ratio a)
+
+instance euclideanRingRatio :: (CommutativeRing a, Semiring a) => EuclideanRing (Ratio a) where
+  degree _ = 1
   div (Ratio a b) (Ratio c d) = Ratio (a * d) (b * c)
+  mod _ _ = zero
 
-instance divisionRingRatio :: (DivisionRing a) => DivisionRing (Ratio a)
-
-instance numRatio :: (Num a) => Num (Ratio a)
+instance fieldRatio :: (Field a) => Field (Ratio a)
 
 numerator :: forall a. Ratio a -> a
 numerator (Ratio a _) = a
