@@ -8,7 +8,7 @@ module Data.Rational
 
 import Prelude
 import Data.Int as Int
-import Data.Ratio (Ratio(Ratio))
+import Data.Ratio (Ratio(Ratio), gcd)
 
 newtype Rational = Rational (Ratio Int)
 
@@ -55,15 +55,10 @@ fromInt :: Int -> Rational
 fromInt i = Rational $ Ratio i 1
 
 reduce :: Rational -> Rational
-reduce (Rational (Ratio a b)) =
-  let x = a / gcd a b
-      y = b / gcd a b
+reduce (Rational ratio@(Ratio a b)) =
+  let x = a / gcd ratio
+      y = b / gcd ratio
   in Rational $ Ratio (x * signum y) (abs y)
-
-gcd :: Int -> Int -> Int
-gcd m n
-  | n == 0 = m
-  | otherwise = gcd n (m `mod` n)
 
 signum :: Int -> Int
 signum 0 = 0

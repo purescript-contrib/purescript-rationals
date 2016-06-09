@@ -1,4 +1,9 @@
-module Data.Ratio where
+module Data.Ratio
+  ( Ratio(Ratio)
+  , numerator
+  , denominator
+  , gcd
+  ) where
 
 import Prelude
 
@@ -27,3 +32,9 @@ numerator (Ratio a _) = a
 
 denominator :: forall a. Ratio a -> a
 denominator (Ratio _ b) = b
+
+gcd :: forall a. (Eq a, EuclideanRing a) => Ratio a -> a
+gcd (Ratio m n)
+  | n == zero = m
+  | otherwise = gcd (Ratio n (m `mod` n))
+
