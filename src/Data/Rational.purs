@@ -25,21 +25,13 @@ instance ordRational :: Ord Rational where
   compare (Rational (Ratio a b)) (Rational (Ratio c d)) | a * d == b * c = EQ
   compare _ _ = GT
 
-instance semiringRational :: Semiring Rational where
-  one = Rational one
-  mul (Rational a) (Rational b) = reduce $ Rational $ a `mul` b
-  zero = Rational zero
-  add (Rational a) (Rational b) = reduce $ Rational $ a `add` b
+derive newtype instance semiringRational :: Semiring Rational
 
-instance ringRational :: Ring Rational where
-  sub (Rational a) (Rational b) = reduce $ Rational $ a `sub` b
+derive newtype instance ringRational :: Ring Rational
 
-instance commutativeRingRational :: CommutativeRing Rational
+derive newtype instance commutativeRingRational :: CommutativeRing Rational
 
-instance euclideanRingRational :: EuclideanRing Rational where
-  degree (Rational a) = degree a
-  div (Rational a) (Rational b) = Rational $ a `div` b
-  mod _ _ = Rational zero
+derive newtype instance euclideanRingRational :: EuclideanRing Rational
 
 instance fieldRational :: Field Rational
 
