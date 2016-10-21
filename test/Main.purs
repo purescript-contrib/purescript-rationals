@@ -15,16 +15,16 @@ newtype TestRational = TestRational Rational
 
 instance arbitraryTestRational :: Arbitrary TestRational where
   arbitrary = do
-    a <- chooseInt (-99.0) 99.0
-    b <- suchThat (chooseInt (-99.0) 99.0) (_ /= 0)
+    a <- chooseInt (-99) 99
+    b <- suchThat (chooseInt (-99) 99) (_ /= 0)
     pure $ TestRational $ a % b
 
 newtype TestRatNonZero = TestRatNonZero Rational
 
 instance arbitraryTestRatNonZero :: Arbitrary TestRatNonZero where
   arbitrary = do
-    a <- suchThat (chooseInt (-99.0) 99.0) (_ /= 0)
-    b <- suchThat (chooseInt (-99.0) 99.0) (_ /= 0)
+    a <- suchThat (chooseInt (-99) 99) (_ /= 0)
+    b <- suchThat (chooseInt (-99) 99) (_ /= 0)
     pure $ TestRatNonZero $ a % b
 
 main :: forall eff. Eff (console :: CONSOLE, random :: RANDOM, err :: EXCEPTION | eff) Unit
