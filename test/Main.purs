@@ -1,21 +1,19 @@
 module Test.Main where
 
 import Prelude
+
 import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Console (CONSOLE, log)
 import Control.Monad.Eff.Random (RANDOM)
 import Control.Monad.Eff.Exception (EXCEPTION)
+
 import Data.Rational (Rational, (%))
-import Test.StrongCheck (Result, quickCheck, (===))
+
+import Test.StrongCheck (Result, quickCheck', (===))
 import Test.StrongCheck.Arbitrary (class Arbitrary)
-import Test.StrongCheck.Gen (chooseInt, suchThat)
-import Test.StrongCheck.Laws.Data.CommutativeRing (checkCommutativeRing)
-import Test.StrongCheck.Laws.Data.Eq (checkEq)
-import Test.StrongCheck.Laws.Data.EuclideanRing (checkEuclideanRing)
-import Test.StrongCheck.Laws.Data.Field (checkField)
-import Test.StrongCheck.Laws.Data.Ord (checkOrd)
-import Test.StrongCheck.Laws.Data.Ring (checkRing)
-import Test.StrongCheck.Laws.Data.Semiring (checkSemiring)
+import Test.StrongCheck.Gen (Gen, chooseInt, suchThat)
+import Test.StrongCheck.Laws (checkLaws)
+import Test.StrongCheck.Laws.Data as Data
 
 import Type.Proxy (Proxy(Proxy))
 
@@ -28,11 +26,14 @@ derive newtype instance ordTestRational :: Ord TestRational
 derive newtype instance ringTestRational :: Ring TestRational
 derive newtype instance semiringTestRational :: Semiring TestRational
 
+int :: Gen Int
+int = chooseInt (-999) 999
+
+nonZeroInt :: Gen Int
+nonZeroInt = int `suchThat` notEq 0
+
 instance arbitraryTestRational :: Arbitrary TestRational where
-  arbitrary = do
-    a <- chooseInt (-99) 99
-    b <- suchThat (chooseInt (-99) 99) (_ /= 0)
-    pure $ TestRational $ a % b
+  arbitrary = compose TestRational <<< (%) <$> int <*> nonZeroInt
 
 testRational :: Proxy TestRational
 testRational = Proxy
@@ -43,26 +44,23 @@ derive newtype instance eqTestRatNonZero :: Eq TestRatNonZero
 derive newtype instance euclideanRingTestRatNonZero :: EuclideanRing TestRatNonZero
 
 instance arbitraryTestRatNonZero :: Arbitrary TestRatNonZero where
-  arbitrary = do
-    a <- suchThat (chooseInt (-99) 99) (_ /= 0)
-    b <- suchThat (chooseInt (-99) 99) (_ /= 0)
-    pure $ TestRatNonZero $ a % b
+  arbitrary = compose TestRatNonZero <<< (%) <$> nonZeroInt <*> nonZeroInt
 
 testRatNonZero :: Proxy TestRatNonZero
 testRatNonZero = Proxy
 
 main :: forall eff. Eff (console :: CONSOLE, random :: RANDOM, err :: EXCEPTION | eff) Unit
-main = do
-  checkEq testRational
-  checkOrd testRational
-  checkSemiring testRational
-  checkRing testRational
-  checkCommutativeRing testRational
-  checkField testRational
-  checkEuclideanRing testRatNonZero
+main = checkLaws "Rational" do
+  Data.checkEq testRational
+  Data.checkOrd testRational
+  Data.checkSemiring testRational
+  Data.checkRing testRational
+  Data.checkCommutativeRing testRational
+  Data.checkField testRational
+  Data.checkEuclideanRing testRatNonZero
 
   log "Checking 'Remainder' law for MuduloSemiring"
-  quickCheck remainder
+  quickCheck' 1000 remainder
 
     where
 
