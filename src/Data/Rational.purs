@@ -1,5 +1,5 @@
 module Data.Rational
-  ( Rational(..)
+  ( Rational
   , rational
   , (%)
   , toNumber
