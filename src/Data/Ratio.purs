@@ -37,5 +37,5 @@ numerator (Ratio a _) = a
 denominator :: forall a. Ratio a -> a
 denominator (Ratio _ b) = b
 
-gcd :: forall a. (Eq a, EuclideanRing a) => Ratio a -> a
+gcd :: forall a. Eq a => EuclideanRing a => Ratio a -> a
 gcd (Ratio m n) = Prelude.gcd m n

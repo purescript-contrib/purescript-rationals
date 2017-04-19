@@ -49,7 +49,7 @@ instance arbitraryTestRatNonZero :: Arbitrary TestRatNonZero where
 testRatNonZero :: Proxy TestRatNonZero
 testRatNonZero = Proxy
 
-main :: forall eff. Eff (console :: CONSOLE, random :: RANDOM, err :: EXCEPTION | eff) Unit
+main :: forall eff. Eff (console :: CONSOLE, random :: RANDOM, exception :: EXCEPTION | eff) Unit
 main = checkLaws "Rational" do
   Data.checkEq testRational
   Data.checkOrd testRational
