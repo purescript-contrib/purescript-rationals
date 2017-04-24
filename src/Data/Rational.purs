@@ -13,6 +13,9 @@ import Data.Ratio (Ratio(Ratio))
 
 newtype Rational = Rational (Ratio Int)
 
+runRational :: Rational -> Ratio Int
+runRational (Rational ratio) = ratio
+
 instance showRational :: Show Rational where
   show (Rational (Ratio a b)) = show a <> " % " <> show b
 
