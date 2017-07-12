@@ -8,10 +8,14 @@ module Data.Ratio
 import Prelude ( class CommutativeRing, class Eq, class EuclideanRing
                , class Field, class Ring, class Semiring
                , one, zero, (*), (+), (-)
+               , class Show, show, (<>)
                )
 import Prelude ( gcd ) as Prelude
 
 data Ratio a = Ratio a a
+
+instance showRatio :: Show a => Show (Ratio a) where
+  show (Ratio a b) = "(Ratio " <> show a <> " " <> show b <> ")"
 
 instance semiringRatio :: Semiring a => Semiring (Ratio a) where
   one = Ratio one one
