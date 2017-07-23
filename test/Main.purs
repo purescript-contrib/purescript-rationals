@@ -7,7 +7,8 @@ import Control.Monad.Eff.Console (CONSOLE, log)
 import Control.Monad.Eff.Random (RANDOM)
 import Control.Monad.Eff.Exception (EXCEPTION)
 
-import Data.Rational (Rational, (%))
+import Data.Ratio ((%))
+import Data.Rational (Rational)
 
 import Test.StrongCheck (Result, quickCheck', (===))
 import Test.StrongCheck.Arbitrary (class Arbitrary)
@@ -21,6 +22,7 @@ newtype TestRational = TestRational Rational
 
 derive newtype instance commutativeRingTestRational :: CommutativeRing TestRational
 derive newtype instance eqTestRational :: Eq TestRational
+derive newtype instance euclideanRingTestRational :: EuclideanRing TestRational
 derive newtype instance fieldTestRational :: Field TestRational
 derive newtype instance ordTestRational :: Ord TestRational
 derive newtype instance ringTestRational :: Ring TestRational
@@ -32,6 +34,16 @@ int = chooseInt (-999) 999
 nonZeroInt :: Gen Int
 nonZeroInt = int `suchThat` notEq 0
 
+newtype SmallInt = SmallInt Int
+  
+instance arbitrarySmallInt :: Arbitrary SmallInt where
+  arbitrary = SmallInt <$> int
+
+newtype NonZeroInt = NonZeroInt Int
+
+instance arbitraryNonZeroInt :: Arbitrary NonZeroInt where
+  arbitrary = NonZeroInt <$> nonZeroInt
+
 instance arbitraryTestRational :: Arbitrary TestRational where
   arbitrary = compose TestRational <<< (%) <$> int <*> nonZeroInt
 
@@ -41,6 +53,9 @@ testRational = Proxy
 newtype TestRatNonZero = TestRatNonZero Rational
 
 derive newtype instance eqTestRatNonZero :: Eq TestRatNonZero
+derive newtype instance semiringTestRatNonZero :: Semiring TestRatNonZero
+derive newtype instance ringTestRatNonZero :: Ring TestRatNonZero
+derive newtype instance commutativeRingTestRatNonZero :: CommutativeRing TestRatNonZero
 derive newtype instance euclideanRingTestRatNonZero :: EuclideanRing TestRatNonZero
 
 instance arbitraryTestRatNonZero :: Arbitrary TestRatNonZero where
@@ -62,7 +77,14 @@ main = checkLaws "Rational" do
   log "Checking 'Remainder' law for MuduloSemiring"
   quickCheck' 1000 remainder
 
+  log "Checking `reduce`"
+  quickCheck' 1000 reducing
+
     where
 
     remainder :: TestRatNonZero -> TestRatNonZero -> Result
     remainder (TestRatNonZero a) (TestRatNonZero b) = a / b * b + (a `mod` b) === a
+
+    reducing :: NonZeroInt -> NonZeroInt -> SmallInt -> NonZeroInt -> Result
+    reducing (NonZeroInt a) (NonZeroInt b) (SmallInt n) (NonZeroInt d)
+      = (a * n) % (a * d) === (b * n) % (b * d)
