@@ -30,8 +30,7 @@ You can turn a `Rational` to a `Number`:
 
 For example, one limitation with `Rational` is that it can easily overflow
 the 32-bit PureScript `Int`. You can get around this problem by using
-[`BigInt`](https://pursuit.purescript.org/packages/purescript-bigints/3.1.0/doc
-s/Data.BigInt#t:BigInt).
+[`BigInt`](https://pursuit.purescript.org/packages/purescript-bigints/3.1.0/docs/Data.BigInt#t:BigInt).
 
 ```
 > import Data.Ratio ((%), reduce)
