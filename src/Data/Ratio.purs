@@ -1,5 +1,5 @@
 module Data.Ratio
-  ( Ratio
+  ( Ratio (..)
   , reduce
   , (%)
   , numerator
