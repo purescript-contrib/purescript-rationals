@@ -2,10 +2,8 @@ module Test.Main where
 
 import Prelude
 
-import Control.Monad.Eff (Eff)
-import Control.Monad.Eff.Console (CONSOLE, log)
-import Control.Monad.Eff.Random (RANDOM)
-import Control.Monad.Eff.Exception (EXCEPTION)
+import Effect (Effect)
+import Effect.Console (log)
 
 import Data.Ratio ((%))
 import Data.Rational (Rational)
@@ -23,10 +21,10 @@ newtype TestRational = TestRational Rational
 derive newtype instance commutativeRingTestRational :: CommutativeRing TestRational
 derive newtype instance eqTestRational :: Eq TestRational
 derive newtype instance euclideanRingTestRational :: EuclideanRing TestRational
-derive newtype instance fieldTestRational :: Field TestRational
 derive newtype instance ordTestRational :: Ord TestRational
 derive newtype instance ringTestRational :: Ring TestRational
 derive newtype instance semiringTestRational :: Semiring TestRational
+derive newtype instance divisionRingTestRational :: DivisionRing TestRational
 
 int :: Gen Int
 int = chooseInt (-999) 999
@@ -35,7 +33,7 @@ nonZeroInt :: Gen Int
 nonZeroInt = int `suchThat` notEq 0
 
 newtype SmallInt = SmallInt Int
-  
+
 instance arbitrarySmallInt :: Arbitrary SmallInt where
   arbitrary = SmallInt <$> int
 
@@ -57,6 +55,7 @@ derive newtype instance semiringTestRatNonZero :: Semiring TestRatNonZero
 derive newtype instance ringTestRatNonZero :: Ring TestRatNonZero
 derive newtype instance commutativeRingTestRatNonZero :: CommutativeRing TestRatNonZero
 derive newtype instance euclideanRingTestRatNonZero :: EuclideanRing TestRatNonZero
+derive newtype instance divisionRingTestRatNonZero :: DivisionRing TestRatNonZero
 
 instance arbitraryTestRatNonZero :: Arbitrary TestRatNonZero where
   arbitrary = compose TestRatNonZero <<< (%) <$> nonZeroInt <*> nonZeroInt
@@ -64,7 +63,7 @@ instance arbitraryTestRatNonZero :: Arbitrary TestRatNonZero where
 testRatNonZero :: Proxy TestRatNonZero
 testRatNonZero = Proxy
 
-main :: forall eff. Eff (console :: CONSOLE, random :: RANDOM, exception :: EXCEPTION | eff) Unit
+main :: Effect Unit
 main = checkLaws "Rational" do
   Data.checkEq testRational
   Data.checkOrd testRational

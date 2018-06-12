@@ -44,7 +44,8 @@ instance euclideanRingRatio :: (Ord a, EuclideanRing a) => EuclideanRing (Ratio 
   div (Ratio a b) (Ratio c d) = reduce (a * d) (b * c)
   mod _ _ = zero
 
-instance fieldRatio :: (Ord a, EuclideanRing a) => Field (Ratio a)
+instance divisionRingRatio :: (Ord a, EuclideanRing a) => DivisionRing (Ratio a) where
+  recip (Ratio a b) = Ratio b a
 
 reduce :: forall a. Ord a => EuclideanRing a => a -> a -> Ratio a
 reduce n d =
