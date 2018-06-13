@@ -72,8 +72,10 @@ main = checkLaws "Rational" do
   Data.checkCommutativeRing testRational
   Data.checkField testRational
   Data.checkEuclideanRing testRatNonZero
+  Data.checkDivisionRing testRational
+  Data.checkDivisionRing testRatNonZero
 
-  log "Checking 'Remainder' law for MuduloSemiring"
+  log "Checking 'Remainder' law for ModuloSemiring"
   quickCheck' 1000 remainder
 
   log "Checking `reduce`"
