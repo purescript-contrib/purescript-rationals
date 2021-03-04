@@ -2,8 +2,10 @@
   "private": true,
   "scripts": {
     "postinstall": "bower install",
-    "build": "spago build",
-    "test": "spago -x ./test.dhall test"
+    "build": "pulp build",
+    "test": "pulp test",
+    "spago-build": "spago build",
+    "spago-test": "spago -x ./test.dhall test"
   },
   "devDependencies": {
     "pulp": "^15.0.0",
