@@ -10,5 +10,8 @@
   "devDependencies": {
     "pulp": "^15.0.0",
     "purescript": "^0.14.0"
+  },
+  "dependencies": {
+    "big-integer": "^1.6.48"
   }
 }

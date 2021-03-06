@@ -17,6 +17,7 @@
     "purescript-prelude": "^5.0.0"
   },
   "devDependencies": {
+    "purescript-bigints": "^5.0.0",
     "purescript-console": "^5.0.0",
     "purescript-quickcheck": "^7.0.0",
     "purescript-quickcheck-laws": "^6.0.0"

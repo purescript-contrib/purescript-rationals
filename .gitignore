@@ -7,3 +7,4 @@ output/
 .purs-repl
 .psc-ide-port
 .spago/
+package-lock.json
