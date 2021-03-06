@@ -9,17 +9,15 @@ import Data.Ratio (Ratio, (%))
 import Data.BigInt (BigInt, fromInt)
 
 import Test.QuickCheck (Result, quickCheck', (===))
-import Test.QuickCheck.Arbitrary (class Arbitrary)
-import Test.QuickCheck.Gen (Gen, chooseInt, suchThat)
+import Test.QuickCheck.Arbitrary (class Arbitrary, arbitrary)
+import Test.QuickCheck.Gen (Gen, suchThat)
 import Test.QuickCheck.Laws (checkLaws)
 import Test.QuickCheck.Laws.Data as Data
 import Test.QuickCheck.Laws.Data.Field (checkField) as DataField
 
 import Type.Proxy (Proxy(Proxy))
 
-type BiggerRational = Ratio BigInt
-
-newtype TestRational = TestRational BiggerRational
+newtype TestRational = TestRational (Ratio BigInt)
 
 derive newtype instance commutativeRingTestRational :: CommutativeRing TestRational
 derive newtype instance eqTestRational :: Eq TestRational
@@ -30,7 +28,7 @@ derive newtype instance semiringTestRational :: Semiring TestRational
 derive newtype instance divisionRingTestRational :: DivisionRing TestRational
 
 bigint :: Gen BigInt
-bigint = fromInt <$> chooseInt (-999) 999
+bigint = fromInt <$> arbitrary 
 
 nonZeroBigInt :: Gen BigInt
 nonZeroBigInt = bigint `suchThat` notEq (fromInt 0)
@@ -46,7 +44,7 @@ instance arbitraryTestRational :: Arbitrary TestRational where
 testRational :: Proxy TestRational
 testRational = Proxy
 
-newtype TestRatNonZero = TestRatNonZero BiggerRational
+newtype TestRatNonZero = TestRatNonZero (Ratio BigInt)
 
 derive newtype instance eqTestRatNonZero :: Eq TestRatNonZero
 derive newtype instance semiringTestRatNonZero :: Semiring TestRatNonZero
