@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "postinstall": "bower install",
+    "postinstall": "spago install",
     "build": "spago build",
     "test": "spago -x ./test.dhall test"
   },
