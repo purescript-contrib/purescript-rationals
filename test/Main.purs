@@ -5,18 +5,19 @@ import Prelude
 import Effect (Effect)
 import Effect.Console (log)
 
-import Data.Ratio ((%))
-import Data.Rational (Rational)
+import Data.Ratio (Ratio, (%))
+import Data.BigInt (BigInt, fromInt)
 
-import Test.StrongCheck (Result, quickCheck', (===))
-import Test.StrongCheck.Arbitrary (class Arbitrary)
-import Test.StrongCheck.Gen (Gen, chooseInt, suchThat)
-import Test.StrongCheck.Laws (checkLaws)
-import Test.StrongCheck.Laws.Data as Data
+import Test.QuickCheck (Result, quickCheck', (===))
+import Test.QuickCheck.Arbitrary (class Arbitrary, arbitrary)
+import Test.QuickCheck.Gen (Gen, suchThat)
+import Test.QuickCheck.Laws (checkLaws)
+import Test.QuickCheck.Laws.Data as Data
+import Test.QuickCheck.Laws.Data.Field (checkField) as DataField
 
 import Type.Proxy (Proxy(Proxy))
 
-newtype TestRational = TestRational Rational
+newtype TestRational = TestRational (Ratio BigInt)
 
 derive newtype instance commutativeRingTestRational :: CommutativeRing TestRational
 derive newtype instance eqTestRational :: Eq TestRational
@@ -26,29 +27,24 @@ derive newtype instance ringTestRational :: Ring TestRational
 derive newtype instance semiringTestRational :: Semiring TestRational
 derive newtype instance divisionRingTestRational :: DivisionRing TestRational
 
-int :: Gen Int
-int = chooseInt (-999) 999
+bigint :: Gen BigInt
+bigint = fromInt <$> arbitrary 
 
-nonZeroInt :: Gen Int
-nonZeroInt = int `suchThat` notEq 0
+nonZeroBigInt :: Gen BigInt
+nonZeroBigInt = bigint `suchThat` notEq (fromInt 0)
 
-newtype SmallInt = SmallInt Int
+newtype NonZeroBigInt = NonZeroBigInt BigInt
 
-instance arbitrarySmallInt :: Arbitrary SmallInt where
-  arbitrary = SmallInt <$> int
-
-newtype NonZeroInt = NonZeroInt Int
-
-instance arbitraryNonZeroInt :: Arbitrary NonZeroInt where
-  arbitrary = NonZeroInt <$> nonZeroInt
+instance arbitraryNonZeroBigInt :: Arbitrary NonZeroBigInt where
+  arbitrary = NonZeroBigInt <$> nonZeroBigInt
 
 instance arbitraryTestRational :: Arbitrary TestRational where
-  arbitrary = compose TestRational <<< (%) <$> int <*> nonZeroInt
+  arbitrary = compose TestRational <<< (%) <$> bigint <*> nonZeroBigInt
 
 testRational :: Proxy TestRational
 testRational = Proxy
 
-newtype TestRatNonZero = TestRatNonZero Rational
+newtype TestRatNonZero = TestRatNonZero (Ratio BigInt)
 
 derive newtype instance eqTestRatNonZero :: Eq TestRatNonZero
 derive newtype instance semiringTestRatNonZero :: Semiring TestRatNonZero
@@ -58,7 +54,7 @@ derive newtype instance euclideanRingTestRatNonZero :: EuclideanRing TestRatNonZ
 derive newtype instance divisionRingTestRatNonZero :: DivisionRing TestRatNonZero
 
 instance arbitraryTestRatNonZero :: Arbitrary TestRatNonZero where
-  arbitrary = compose TestRatNonZero <<< (%) <$> nonZeroInt <*> nonZeroInt
+  arbitrary = compose TestRatNonZero <<< (%) <$> nonZeroBigInt <*> nonZeroBigInt
 
 testRatNonZero :: Proxy TestRatNonZero
 testRatNonZero = Proxy
@@ -67,10 +63,10 @@ main :: Effect Unit
 main = checkLaws "Rational" do
   Data.checkEq testRational
   Data.checkOrd testRational
-  Data.checkSemiring testRational
+  Data.checkSemiring testRational 
   Data.checkRing testRational
   Data.checkCommutativeRing testRational
-  Data.checkField testRational
+  DataField.checkField testRational
   Data.checkEuclideanRing testRatNonZero
   Data.checkDivisionRing testRational
   Data.checkDivisionRing testRatNonZero
@@ -86,6 +82,6 @@ main = checkLaws "Rational" do
     remainder :: TestRatNonZero -> TestRatNonZero -> Result
     remainder (TestRatNonZero a) (TestRatNonZero b) = a / b * b + (a `mod` b) === a
 
-    reducing :: NonZeroInt -> NonZeroInt -> SmallInt -> NonZeroInt -> Result
-    reducing (NonZeroInt a) (NonZeroInt b) (SmallInt n) (NonZeroInt d)
+    reducing :: NonZeroBigInt -> NonZeroBigInt -> NonZeroBigInt -> NonZeroBigInt -> Result
+    reducing (NonZeroBigInt a) (NonZeroBigInt b) (NonZeroBigInt n) (NonZeroBigInt d)
       = (a * n) % (a * d) === (b * n) % (b * d)

@@ -4,3 +4,7 @@ output/
 .psci
 .psci_modules/
 .pulp-cache/
+.purs-repl
+.psc-ide-port
+.spago/
+package-lock.json
