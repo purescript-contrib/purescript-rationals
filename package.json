@@ -9,8 +9,8 @@
   },
   "devDependencies": {
     "pulp": "^15.0.0",
-    "spago": "^0.19.1",
-    "purescript": "^0.14.0",
+    "spago": "^0.20.3",
+    "purescript": "^0.14.3",
     "big-integer": "^1.6.48"
   }
 }

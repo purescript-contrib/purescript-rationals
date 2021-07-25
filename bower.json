@@ -14,12 +14,12 @@
   ],
   "dependencies": {
     "purescript-integers": "^5.0.0",
-    "purescript-prelude": "^5.0.0"
+    "purescript-prelude": "^5.0.1"
   },
   "devDependencies": {
-    "purescript-bigints": "^5.0.0",
+    "purescript-bigints": "^6.0.0",
     "purescript-console": "^5.0.0",
-    "purescript-quickcheck": "^7.0.0",
-    "purescript-quickcheck-laws": "^6.0.0"
+    "purescript-quickcheck": "^7.1.0",
+    "purescript-quickcheck-laws": "^6.0.1"
   }
 }
