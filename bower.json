@@ -1,25 +1,20 @@
 {
-  "name": "purescript-rationals",
-  "version": "2.1.0",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/anttih/purescript-rationals.git"
-  },
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "output"
-  ],
-  "dependencies": {
-    "purescript-integers": "^5.0.0",
-    "purescript-prelude": "^5.0.0"
-  },
-  "devDependencies": {
-    "purescript-bigints": "^5.0.0",
-    "purescript-console": "^5.0.0",
-    "purescript-quickcheck": "^7.0.0",
-    "purescript-quickcheck-laws": "^6.0.0"
-  }
+    "name": "purescript-rationals",
+    "license": [
+        "MIT"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/anttih/purescript-rationals.git"
+    },
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "output"
+    ],
+    "dependencies": {
+        "purescript-integers": "^v6.0.0",
+        "purescript-prelude": "^v6.0.0"
+    }
 }
