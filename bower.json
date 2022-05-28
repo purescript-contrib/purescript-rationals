@@ -5,7 +5,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "git://github.com/anttih/purescript-rationals.git"
+        "url": "git://github.com/purescript-contrib/purescript-rationals.git"
     },
     "ignore": [
         "**/.*",
