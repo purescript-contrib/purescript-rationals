@@ -1,27 +1,25 @@
 {
-    "name": "purescript-rationals",
-    "license": [
-        "MIT"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/purescript-contrib/purescript-rationals.git"
-    },
-    "ignore": [
-        "**/.*",
-        "node_modules",
-        "bower_components",
-        "output"
-    ],
-    "dependencies": {
-        "purescript-integers": "^v6.0.0",
-        "purescript-prelude": "^v6.0.0"
-    },
-    "devDependencies": {
-        "purescript-bigints": "^7.0.1",
-        "purescript-effect": "^4.0.0",
-        "purescript-console": "^6.0.0",
-        "purescript-quickcheck": "^8.0.1",
-        "purescript-quickcheck-laws": "^7.0.0"
-      }
+  "name": "purescript-rationals",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/purescript-contrib/purescript-rationals.git"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "output"
+  ],
+  "dependencies": {
+    "purescript-integers": "^v6.0.0",
+    "purescript-prelude": "^v6.0.0"
+  },
+  "devDependencies": {
+    "purescript-bigints": "^7.0.1",
+    "purescript-effect": "^4.0.0",
+    "purescript-console": "^6.0.0",
+    "purescript-quickcheck": "^8.0.1",
+    "purescript-quickcheck-laws": "^7.0.0"
+  }
 }
