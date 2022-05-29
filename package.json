@@ -8,8 +8,9 @@
     "spago-test": "spago -x ./test.dhall test"
   },
   "devDependencies": {
-    "pulp": "^15.0.0",
-    "purescript": "^0.14.0",
-    "big-integer": "^1.6.48"
+    "big-integer": "^1.6.51",
+    "pulp": "^16.0.1",
+    "purescript": "^0.15.2",
+    "spago": "^0.20.9"
   }
 }
