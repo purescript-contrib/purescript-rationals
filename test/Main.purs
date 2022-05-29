@@ -5,7 +5,7 @@ import Prelude
 import Effect (Effect)
 import Effect.Console (log)
 
-import Data.Ratio (Ratio, (%))
+import Data.Rational (Rational, (%))
 import Data.BigInt (BigInt, fromInt)
 
 import Test.QuickCheck (Result, quickCheck', (===))
@@ -17,7 +17,7 @@ import Test.QuickCheck.Laws.Data.Field (checkField) as DataField
 
 import Type.Proxy (Proxy(Proxy))
 
-newtype TestRational = TestRational (Ratio BigInt)
+newtype TestRational = TestRational Rational
 
 derive newtype instance commutativeRingTestRational :: CommutativeRing TestRational
 derive newtype instance eqTestRational :: Eq TestRational
@@ -44,7 +44,7 @@ instance arbitraryTestRational :: Arbitrary TestRational where
 testRational :: Proxy TestRational
 testRational = Proxy
 
-newtype TestRatNonZero = TestRatNonZero (Ratio BigInt)
+newtype TestRatNonZero = TestRatNonZero Rational
 
 derive newtype instance eqTestRatNonZero :: Eq TestRatNonZero
 derive newtype instance semiringTestRatNonZero :: Semiring TestRatNonZero

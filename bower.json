@@ -12,11 +12,10 @@
     "output"
   ],
   "dependencies": {
-    "purescript-integers": "^v6.0.0",
+    "purescript-bigints": "^7.0.1",
     "purescript-prelude": "^v6.0.0"
   },
   "devDependencies": {
-    "purescript-bigints": "^7.0.1",
     "purescript-effect": "^4.0.0",
     "purescript-console": "^6.0.0",
     "purescript-quickcheck": "^8.0.1",
