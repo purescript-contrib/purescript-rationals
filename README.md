@@ -1,6 +1,8 @@
 Rational numbers for PureScript
 -------------------------------
 
+[![Maintainer: gbagan](https://img.shields.io/badge/maintainer-gbagan-teal.svg)](https://github.com/gbagan)
+
 Using numbers to do arithmetic with fractions in PureScript may yield surprising results:
 
 ```
