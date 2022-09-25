@@ -6,8 +6,9 @@ module Data.Rational
   ) where
 
 import Prelude
+
 import Data.Int as Int
-import Data.Ratio (Ratio, (%), numerator, denominator)
+import Data.Ratio (Ratio, denominator, numerator, (%))
 
 type Rational = Ratio Int
 

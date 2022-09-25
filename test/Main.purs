@@ -2,20 +2,17 @@ module Test.Main where
 
 import Prelude
 
+import Data.BigInt (BigInt, fromInt)
+import Data.Ratio (Ratio, (%))
 import Effect (Effect)
 import Effect.Console (log)
-
-import Data.Ratio (Ratio, (%))
-import Data.BigInt (BigInt, fromInt)
-
 import Test.QuickCheck (Result, quickCheck', (===))
 import Test.QuickCheck.Arbitrary (class Arbitrary, arbitrary)
 import Test.QuickCheck.Gen (Gen, suchThat)
 import Test.QuickCheck.Laws (checkLaws)
 import Test.QuickCheck.Laws.Data as Data
 import Test.QuickCheck.Laws.Data.Field (checkField) as DataField
-
-import Type.Proxy (Proxy(Proxy))
+import Type.Proxy (Proxy(..))
 
 newtype TestRational = TestRational (Ratio BigInt)
 
@@ -28,7 +25,7 @@ derive newtype instance semiringTestRational :: Semiring TestRational
 derive newtype instance divisionRingTestRational :: DivisionRing TestRational
 
 bigint :: Gen BigInt
-bigint = fromInt <$> arbitrary 
+bigint = fromInt <$> arbitrary
 
 nonZeroBigInt :: Gen BigInt
 nonZeroBigInt = bigint `suchThat` notEq (fromInt 0)
@@ -63,7 +60,7 @@ main :: Effect Unit
 main = checkLaws "Rational" do
   Data.checkEq testRational
   Data.checkOrd testRational
-  Data.checkSemiring testRational 
+  Data.checkSemiring testRational
   Data.checkRing testRational
   Data.checkCommutativeRing testRational
   DataField.checkField testRational
@@ -77,11 +74,10 @@ main = checkLaws "Rational" do
   log "Checking `reduce`"
   quickCheck' 1000 reducing
 
-    where
+  where
 
-    remainder :: TestRatNonZero -> TestRatNonZero -> Result
-    remainder (TestRatNonZero a) (TestRatNonZero b) = a / b * b + (a `mod` b) === a
+  remainder :: TestRatNonZero -> TestRatNonZero -> Result
+  remainder (TestRatNonZero a) (TestRatNonZero b) = a / b * b + (a `mod` b) === a
 
-    reducing :: NonZeroBigInt -> NonZeroBigInt -> NonZeroBigInt -> NonZeroBigInt -> Result
-    reducing (NonZeroBigInt a) (NonZeroBigInt b) (NonZeroBigInt n) (NonZeroBigInt d)
-      = (a * n) % (a * d) === (b * n) % (b * d)
+  reducing :: NonZeroBigInt -> NonZeroBigInt -> NonZeroBigInt -> NonZeroBigInt -> Result
+  reducing (NonZeroBigInt a) (NonZeroBigInt b) (NonZeroBigInt n) (NonZeroBigInt d) = (a * n) % (a * d) === (b * n) % (b * d)

@@ -3,14 +3,9 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/purescript-contrib/purescript-rationals.git"
+    "url": "https://github.com/purescript-contrib/purescript-rationals.git"
   },
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "output"
-  ],
+  "ignore": ["**/.*", "node_modules", "bower_components", "output"],
   "dependencies": {
     "purescript-integers": "^v6.0.0",
     "purescript-prelude": "^v6.0.0"

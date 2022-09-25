@@ -7,6 +7,7 @@ module Data.Ratio
   ) where
 
 import Prelude
+
 import Data.Ord (abs, signum)
 
 data Ratio a = Ratio a a
@@ -21,12 +22,11 @@ instance ordRatio :: (Ord a, EuclideanRing a) => Ord (Ratio a) where
   compare x y =
     case x - y of
       Ratio n d ->
-        if n == zero
-          then EQ
-          else case n > zero, d > zero of
-            true, true -> GT
-            false, false -> GT
-            _, _ -> LT
+        if n == zero then EQ
+        else case n > zero, d > zero of
+          true, true -> GT
+          false, false -> GT
+          _, _ -> LT
 
 instance semiringRatio :: (Ord a, EuclideanRing a) => Semiring (Ratio a) where
   one = Ratio one one
