@@ -1,6 +1,8 @@
-Rational numbers for PureScript
--------------------------------
+# Rationals
 
+[![CI](https://github.com/purescript-contrib/purescript-rationals/workflows/CI/badge.svg?branch=master)](https://github.com/purescript-contrib/purescript-rationals/actions?query=workflow%3ACI+branch%3Amaster)
+[![Release](https://img.shields.io/github/release/purescript-contrib/purescript-rationals.svg)](https://github.com/purescript-contrib/purescript-rationals/releases)
+[![Pursuit](https://pursuit.purescript.org/packages/purescript-rationals/badge)](https://pursuit.purescript.org/packages/purescript-rationals)
 [![Maintainer: gbagan](https://img.shields.io/badge/maintainer-gbagan-teal.svg)](https://github.com/gbagan)
 
 Using numbers to do arithmetic with fractions in PureScript may yield surprising results:
@@ -25,6 +27,17 @@ You can turn a `Rational` to a `Number`:
 0.3
 ```
 
+## Installation
+
+Install `rationals` with [Spago](https://github.com/purescript/spago):
+
+```sh
+spago install rationals
+
+# Or with Bower
+bower install purescript-rationals
+```
+
 ## Other Ratios
 
 `Rational` is just a type alias for `Ratio Int` and you might want to use
@@ -43,12 +56,24 @@ Ratio BigInt
 (Just fromString "5" % fromString "428990604650646904179692046415241")
 ```
 
-## Installation
+## Documentation
 
-```
-bower install purescript-rationals
-```
+`rationals` documentation is stored in a few places:
 
-## API documentation
+1. Module documentation is [published on Pursuit](https://pursuit.purescript.org/packages/purescript-rationals).
+2. Usage examples can be found in [the test suite](./test).
 
-Module documentation is [published on Pursuit](http://pursuit.purescript.org/packages/purescript-rationals/).
+If you get stuck, there are several ways to get help:
+
+- [Open an issue](https://github.com/purescript-contrib/purescript-rationals/issues) if you have encountered a bug or problem.
+- Ask general questions on the [PureScript Discourse](https://discourse.purescript.org) forum or the [PureScript Discord](https://discord.com/invite/sMqwYUbvz6) chat.
+
+## Contributing
+
+You can contribute to `rationals` in several ways:
+
+1. If you encounter a problem or have a question, please [open an issue](https://github.com/purescript-contrib/purescript-rationals/issues). We'll do our best to work with you to resolve or answer it.
+
+2. If you would like to contribute code, tests, or documentation, please [read the contributor guide](./CONTRIBUTING.md). It's a short, helpful introduction to contributing to this library, including development instructions.
+
+3. If you have written a library, tutorial, guide, or other resource based on this package, please share it on the [PureScript Discourse](https://discourse.purescript.org)! Writing libraries and learning resources are a great way to help this library succeed.
