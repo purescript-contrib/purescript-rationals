@@ -54,4 +54,4 @@ jobs:
         run: npm run spago-test
 
       - name: Check formatting
-        run: purs-tidy check src test
+        run: npx purs-tidy check src test
