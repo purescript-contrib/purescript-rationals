@@ -2,17 +2,12 @@ module Test.Main where
 
 import Prelude
 
-import Data.BigInt (BigInt, fromInt)
-import Data.Ratio (Ratio, (%))
+import JS.BigInt (BigInt, fromInt)
 import Effect (Effect)
 import Effect.Console (log)
-<<<<<<< HEAD
-=======
 
 import Data.Rational (Rational, (%))
-import Data.BigInt (BigInt, fromInt)
 
->>>>>>> c3da15179610a53a65da852b0b109ac3b21354f8
 import Test.QuickCheck (Result, quickCheck', (===))
 import Test.QuickCheck.Arbitrary (class Arbitrary, arbitrary)
 import Test.QuickCheck.Gen (Gen, suchThat)

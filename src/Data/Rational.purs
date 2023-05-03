@@ -11,15 +11,12 @@ module Data.Rational
   ) where
 
 import Prelude
-<<<<<<< HEAD
 
 import Data.Int as Int
 import Data.Ratio (Ratio, denominator, numerator, (%))
-=======
 import JS.BigInt (BigInt)
 import JS.BigInt as BigInt
 import Data.Ratio as Ratio
->>>>>>> c3da15179610a53a65da852b0b109ac3b21354f8
 
 newtype Rational = Rational (Ratio.Ratio BigInt)
 
