@@ -3,7 +3,8 @@
   "scripts": {
     "build": "spago build",
     "spago-build": "spago build",
-    "test": "spago -x ./test.dhall test"
+    "test": "spago -x ./test.dhall test",
+    "spago-test": "spago -x ./test.dhall test"
   },
   "devDependencies": {
     "purescript": "^0.15.8",
