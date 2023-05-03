@@ -14,9 +14,9 @@ import Prelude
 
 import Data.Int as Int
 import Data.Ratio (Ratio, denominator, numerator, (%))
+import Data.Ratio as Ratio
 import JS.BigInt (BigInt)
 import JS.BigInt as BigInt
-import Data.Ratio as Ratio
 
 newtype Rational = Rational (Ratio.Ratio BigInt)
 
@@ -44,13 +44,17 @@ numerator (Rational x) = Ratio.numerator x
 denominator :: Rational -> BigInt
 denominator (Rational x) = Ratio.denominator x
 
-class ToRational a
-  where toRational :: a -> a -> Rational
+class
+  ToRational a
+  where
+  toRational :: a -> a -> Rational
 
 instance ToRational Int
-  where toRational a b = Rational $ Ratio.reduce (BigInt.fromInt a) (BigInt.fromInt b)
+  where
+  toRational a b = Rational $ Ratio.reduce (BigInt.fromInt a) (BigInt.fromInt b)
 
 instance ToRational BigInt
-  where toRational a b = Rational $ Ratio.reduce a b
+  where
+  toRational a b = Rational $ Ratio.reduce a b
 
 infixl 7 toRational as %
