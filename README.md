@@ -40,12 +40,8 @@ bower install purescript-rationals
 
 ## Other Ratios
 
-`Rational` is just a type alias for `Ratio Int` and you might want to use
-`Ratio` with other than `Int`. The type you choose must however be an `EuclideanRing`.
-
-For example, one limitation with `Rational` is that it can easily overflow
-the 32-bit PureScript `Int`. You can get around this problem by using
-[`BigInt`](https://pursuit.purescript.org/packages/purescript-bigints/3.1.0/docs/Data.BigInt#t:BigInt).
+`Rational` is just a newtype over `Ratio BigInt` and you might want to use
+`Ratio` with other than `BigInt`. The type you choose must however be an `EuclideanRing`.
 
 ```
 > import Data.Ratio ((%), reduce)
