@@ -11,3 +11,13 @@ New features:
 Bugfixes:
 
 Other improvements:
+
+## v6.0.0
+
+Breaking changes:
+
+- `Rational` is now a newtype over `Ratio BigInt`.
+- numerator and denominator now return `BigInt` instead of `Int`
+
+New features:
+- `%` is polymorphic. It accepts `Int -> Int -> Rational` or `BigInt -> BigInt -> Rational`.
