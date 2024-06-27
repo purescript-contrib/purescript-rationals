@@ -10,6 +10,8 @@ New features:
 
 Bugfixes:
 
+- Qualified Data.Int and Data.Ratio imports generate warnings (#44).
+
 Other improvements:
 
 ## v6.0.0

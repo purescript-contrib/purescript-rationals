@@ -12,8 +12,6 @@ module Data.Rational
 
 import Prelude
 
-import Data.Int as Int
-import Data.Ratio (Ratio, denominator, numerator, (%))
 import Data.Ratio as Ratio
 import JS.BigInt (BigInt)
 import JS.BigInt as BigInt
