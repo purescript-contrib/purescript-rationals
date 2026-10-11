@@ -1,0 +1,24 @@
+package:
+  name: rationals
+  publish:
+    version: 6.0.1
+    license: MIT
+    location:
+      githubOwner: purescript-contrib
+      githubRepo: purescript-rationals
+  build:
+    strict: true
+  dependencies:
+    - integers: ">=6.0.0 <7.0.0"
+    - js-bigints: ">=2.1.0 <3.0.0"
+    - prelude: ">=6.0.1 <7.0.0"
+  test:
+    main: Test.Main
+    dependencies:
+      - console
+      - effect
+      - quickcheck
+      - quickcheck-laws
+workspace:
+  packageSet:
+    registry: 81.4.0
