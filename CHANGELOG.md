@@ -10,9 +10,17 @@ New features:
 
 Bugfixes:
 
-- Qualified Data.Int and Data.Ratio imports generate warnings (#44).
+Other improvements:
+
+## v6.0.1
+
+Bugfixes:
+
+- Remove redundant Data.Int and Data.Ratio imports that generate warnings (#44, #45).
 
 Other improvements:
+
+- Migrate to registry-backed Spago 1.0 and update repository tooling and CI actions (#47).
 
 ## v6.0.0
 
