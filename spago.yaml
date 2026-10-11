@@ -1,7 +1,7 @@
 package:
   name: rationals
   publish:
-    version: 6.0.1
+    version: 6.0.2
     license: MIT
     location:
       githubOwner: purescript-contrib
@@ -9,7 +9,6 @@ package:
   build:
     strict: true
   dependencies:
-    - integers: ">=6.0.0 <7.0.0"
     - js-bigints: ">=2.1.0 <3.0.0"
     - prelude: ">=6.0.1 <7.0.0"
   test:

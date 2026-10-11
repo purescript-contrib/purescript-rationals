@@ -6,9 +6,6 @@
         "core": {
           "dependencies": [
             {
-              "integers": ">=6.0.0 <7.0.0"
-            },
-            {
               "js-bigints": ">=2.1.0 <3.0.0"
             },
             {

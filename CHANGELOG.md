@@ -12,7 +12,15 @@ Bugfixes:
 
 Other improvements:
 
+## v6.0.2
+
+Other improvements:
+
+- Remove the unused direct `integers` dependency so the package passes Spago's publication checks. All remaining dependency bounds are unchanged.
+
 ## v6.0.1
+
+This version was released on GitHub but was not published to the registry because Spago rejected the unused direct `integers` dependency.
 
 Bugfixes:
 
