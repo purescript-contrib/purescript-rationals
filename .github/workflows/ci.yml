@@ -11,47 +11,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
+
+      - name: Set up Node toolchain
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
 
       - name: Set up a PureScript toolchain
         uses: purescript-contrib/setup-purescript@main
+        with:
+          spago: latest
+          purs-tidy: latest
 
       - name: Cache PureScript dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v6
         with:
-          key: ${{ runner.os }}-spago-${{ hashFiles('**/*.dhall') }}
+          key: ${{ runner.os }}-spago-${{ hashFiles('spago.yaml', 'spago.lock') }}
           path: |
             .spago
             output
 
-      - name: Set up Node toolchain
-        uses: actions/setup-node@v2
-        with:
-          node-version: "16.x"
-
-      - name: Cache NPM dependencies
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-
-      - name: Install NPM dependencies
-        run: npm install
-
-      - name: Run Bower tests
-        run: npm run build && npm run test
-
       - name: Run Spago build
-        run: npm run spago-build
+        run: spago build
 
       - name: Run tests
-        run: npm run spago-test
+        run: spago test
 
       - name: Check formatting
-        run: npx purs-tidy check src test
+        run: purs-tidy check src test
